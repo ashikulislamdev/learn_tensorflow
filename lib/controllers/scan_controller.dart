@@ -23,6 +23,9 @@ class ScanController extends GetxController {
   var isCameraInitialized = false.obs;
   var cameraCount = 0;
 
+  // var w, x, y, h = 0.0;
+  var label = "";
+
   //initialize our camera
   initializeCamera() async {
     //check the user give the permission for camera or not
@@ -54,8 +57,8 @@ class ScanController extends GetxController {
   //initialize TFLite
   initTflite() async {
     await Tflite.loadModel(
-      model: "assets/models/mobilenet.tflite",
-      labels: "assets/models/mobilenet.txt",
+      model: "assets/models/mobilenet.tflite", //Image Classification
+      labels: "assets/models/mobilenet.txt", //Image Classification
       isAsset: true,
       numThreads: 1,
       useGpuDelegate: false,
@@ -78,7 +81,22 @@ class ScanController extends GetxController {
       threshold: 0.4,
     );
     if (detector != null) {
-      print("Result is $detector");
+      // print("Result is $detector");
+      var detectedObject = detector.first;
+      if (detectedObject['confidence'] * 100.00 > 40) {
+        //Image Classification
+        label = detectedObject['label'].toString();
+      }
+      update();
+
+      // if (detectedObject['confidence'] * 100 >= 45) {
+      //   label = detectedObject['label'].toString();
+      //   h = detectedObject['rect']['h'];
+      //   w = detectedObject['rect']['w'];
+      //   x = detectedObject['rect']['x'];
+      //   y = detectedObject['rect']['y'];
+      // }
+      // update();
     }
   }
 }
