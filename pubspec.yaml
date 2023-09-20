@@ -40,6 +40,7 @@ dependencies:
   camera: ^0.10.5+4
   image: ^3.3.0
   flutter_tflite: ^1.0.1
+  flutter_tts: ^3.8.3
 
   
 dev_dependencies:

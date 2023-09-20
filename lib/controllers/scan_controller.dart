@@ -25,6 +25,7 @@ class ScanController extends GetxController {
 
   // var w, x, y, h = 0.0;
   var label = "";
+  var persentage = "";
 
   //initialize our camera
   initializeCamera() async {
@@ -86,6 +87,8 @@ class ScanController extends GetxController {
       if (detectedObject['confidence'] * 100.00 > 40) {
         //Image Classification
         label = detectedObject['label'].toString();
+        persentage =
+            double.tryParse(detectedObject['confidence'] * 100.00).toString();
       }
       update();
 
